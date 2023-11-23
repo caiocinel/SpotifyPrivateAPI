@@ -159,7 +159,7 @@ namespace SpotifyPrivate
             public AddedBy AddedBy { get; set; }
 
             [JsonProperty("attributes", NullValueHandling = NullValueHandling.Ignore)]
-            public List<object> Attributes { get; set; }
+            public List<Attribute> Attributes { get; set; }
 
             [JsonProperty("itemV2", NullValueHandling = NullValueHandling.Ignore)]
             public ItemV2 ItemV2 { get; set; }
@@ -237,7 +237,7 @@ namespace SpotifyPrivate
             public string Format { get; set; }
 
             [JsonProperty("attributes", NullValueHandling = NullValueHandling.Ignore)]
-            public List<object> Attributes { get; set; }
+            public List<Attribute> Attributes { get; set; }
 
             [JsonProperty("sharingInfo", NullValueHandling = NullValueHandling.Ignore)]
             public SharingInfo SharingInfo { get; set; }
@@ -259,6 +259,15 @@ namespace SpotifyPrivate
 
             [JsonProperty("extensions", NullValueHandling = NullValueHandling.Ignore)]
             public Extensions Extensions { get; set; }
+        }
+
+        public class Attribute
+        {
+            [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+            public string Key { get; set; }
+
+            [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+            public object Value { get; set; }
         }
 
         public class SharingInfo
