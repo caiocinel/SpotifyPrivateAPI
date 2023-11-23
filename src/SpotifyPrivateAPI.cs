@@ -159,11 +159,6 @@ namespace SpotifyPrivate
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-
-
-            Console.WriteLine(await client.GetStringAsync("https://api.myip.com/"));
-
-
             T ? response = default(T);
 
             try
