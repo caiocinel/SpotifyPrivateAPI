@@ -1,18 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net;
-using SpotifyAPI.Web;
+﻿using System.Net;
 
 class Program
 {
     static async Task Main()
     {   
-
         WebProxy proxy = new() { 
             Address = new Uri("http://username:password@127.0.0.1:25565"),
             Credentials = new NetworkCredential("username", "password")
         };
 
+
+        //Proxy is optional
         var spotify = new SpotifyPrivate.API(proxyConfig: proxy);
         SpotifyPrivate.Track.Base? track = await spotify.GetTrack("3rUGC1vUpkDG9CZFHMur1t");
         SpotifyPrivate.Artist.Base? artist = await spotify.GetArtist("1oSgjdbgLYULVmEBojPRw8");
