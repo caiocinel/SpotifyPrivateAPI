@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json;
+using SpotifyAPI.Web;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -16,7 +17,7 @@ namespace SpotifyPrivate
 
         public API(string? token = null) => this.token = token;
 
-        public async Task<Track.Base> GetTrack(string trackID)
+        public async Task<Track.Base?> GetTrack(string trackID)
         {            
             operationName = "getTrack";
 
@@ -34,13 +35,13 @@ namespace SpotifyPrivate
                 }
             });
            
-            Track.Base response =  await DoRequest<Track.Base>();
+            Track.Base? response =  await DoRequest<Track.Base?>();
 
-            return response == null ? throw new Exception("Failed to fetch track info") : response;
+            return response;
         }
 
 
-        public async Task<Artist.Base> GetArtist(string artistID)
+        public async Task<Artist.Base?> GetArtist(string artistID)
         {
             operationName = "queryArtistOverview";
 
@@ -60,9 +61,75 @@ namespace SpotifyPrivate
                 }
             });
 
-            Artist.Base response = await DoRequest<Artist.Base>();
+            Artist.Base? response = await DoRequest<Artist.Base?>();
 
-            return response == null ? throw new Exception("Failed to fetch track info") : response;
+            return response;
+        }
+
+        public async Task<Playlist.Base?> GetPlaylist(string playlistID, bool fetchAllSongs = false)
+        {
+            operationName = "fetchPlaylist";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                uri = $"spotify:playlist:{playlistID}",
+                offset = 0,
+                limit = 400
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "73a3b3470804983e4d55d83cd6cc99715019228fd999d51429cc69473a18789d"
+                }
+            });
+
+            Playlist.Base? response = await DoRequest<Playlist.Base?>();
+
+            if(response == null)
+                return null;
+
+            while ((fetchAllSongs) && (response.Data.PlaylistV2.Content.Items.Count < response.Data.PlaylistV2.Content.TotalCount))
+            {
+                response.Data.PlaylistV2.Content.Items.AddRange(await GetPlaylistSongsRecursive(playlistID, response.Data.PlaylistV2.Content.Items.Count));
+            }
+
+            return response;
+        }
+
+        public async Task<Album.Base?> GetAlbum(string albumId)
+        {
+            operationName = "getAlbum";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                uri = $"spotify:album:{albumId}",
+                locale = "intl-en",
+                offset = 0,
+                limit = 50
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "46ae954ef2d2fe7732b4b2b4022157b2e18b7ea84f70591ceb164e4de1b5d5d3"
+                }
+            });
+
+            Album.Base? response = await DoRequest<Album.Base?>();
+
+            return response;
+        }
+
+        public async Task<User.Base?> GetUser(string userID, int playlist_limit = 10, int artist_limit = 10, int episode_limit = 10, string market = "US")
+        {
+            string URL = $"https://spclient.wg.spotify.com/user-profile-view/v3/profile/{userID}?playlist_limit={playlist_limit}&artist_limit={artist_limit}&episode_limit={episode_limit}&market={market}";
+            User.Base? response = await DoRequest<User.Base?>(URL);
+            return response;
         }
 
 
@@ -74,7 +141,7 @@ namespace SpotifyPrivate
 
         private string GetQuery() => "operationName=" + operationName + "&variables=" + variables + "&extensions=" + extensions;
 
-        private async Task<T> DoRequest<T>()
+        private async Task<T?> DoRequest<T>(string? URL = null)
         {
             if (token == null)
                 token = (await Auth.GetAuth()).accessToken;
@@ -82,26 +149,74 @@ namespace SpotifyPrivate
             client = new();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            T? response = default;
+            T? response = default(T);
 
             try
             {
-                response = await client.GetFromJsonAsync<T>(baseURL + GetQuery());
+                //GetFromJsonAsync make lists return null
+                var data = await client.GetStringAsync(URL == null ? baseURL + GetQuery() : URL);
+                response = JsonConvert.DeserializeObject<T>(data);
             }
             catch (HttpRequestException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
                     token = (await Auth.GetAuth()).accessToken;
-                    return await DoRequest<T>();
+                    return await DoRequest<T>(URL);
                 }
-
-                throw new Exception("Failed to fetch track info: " + e.Message);
             }
 
-            return response == null ? throw new Exception("Failed to fetch track info") : response;
+            return response;
+        }
+
+        private async Task<List<Playlist.Item>> GetPlaylistSongsRecursive(string playlistId, int offset)
+        {
+            operationName = "fetchPlaylistContents";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                uri = $"spotify:playlist:{playlistId}",
+                offset = offset,
+                limit = 400
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "2c5eb75bd3f267189ac2ce04b2b05dfae1ad5a42322f5c0045f7b787c8ce25ff"
+                }
+            });
+
+            PlaylistContent.Base? response = await DoRequest<PlaylistContent.Base?>();
+
+
+            if (response == null)
+                return new List<Playlist.Item>();
+
+            return response.Data.PlaylistV2.Content.Items;
         }
 
 
+        /// <summary>
+        ///# Static Methods
+        /// </summary>
+        /// <returns></returns>
+
+        public class Uri
+        {
+            public string Type;
+            public string Uid;
+
+            public Uri(string uri)
+            {
+                string[] uriSplit = uri.Split(':');
+                Type = uriSplit[1];
+                Uid = uriSplit[2];
+            }
+        }
+
+        public static Uri ParseURI(string uri) => new Uri(uri);
     }
 }
