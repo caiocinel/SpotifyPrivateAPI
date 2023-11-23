@@ -1,6 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 using SpotifyAPI.Web;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -14,8 +15,12 @@ namespace SpotifyPrivate
         private string? extensions = null;
         private string? token = null;
         private HttpClient? client = null;
+        private WebProxy? proxy = null;
 
-        public API(string? token = null) => this.token = token;
+        public API(string? token = null, WebProxy? proxyConfig = null) {
+            this.token = token;           
+            this.proxy = proxyConfig; 
+        }
 
         public async Task<Track.Base?> GetTrack(string trackID)
         {            
@@ -146,10 +151,20 @@ namespace SpotifyPrivate
             if (token == null)
                 token = (await Auth.GetAuth()).accessToken;
 
-            client = new();
+
+            if (proxy != null)
+                client = new HttpClient(new HttpClientHandler { Proxy = proxy });
+            else
+                client = new HttpClient();
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            T? response = default(T);
+
+
+            Console.WriteLine(await client.GetStringAsync("https://api.myip.com/"));
+
+
+            T ? response = default(T);
 
             try
             {
