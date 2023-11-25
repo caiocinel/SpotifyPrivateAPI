@@ -31,6 +31,8 @@ Routes are based on [Spotify Web Player](https://open.spotify.com/) API, all req
 - Playlist (with recursive content fetch and chart data support)
 - Album
 - User
+- Search User
+- Follow User
 
 ## Disclaimer
 

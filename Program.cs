@@ -123,6 +123,35 @@ class Program
         Console.WriteLine("Top 1 Track: " + weeklyChart.Data.PlaylistV2.Content.Items[0].ItemV2.Data.Name);
         Console.WriteLine("Weekly Play Count: " + weeklyChart.Data.PlaylistV2.Content.Items[0].Attributes[3].Value);
 
+        Console.WriteLine("--------------------------------------------------");
+
+        var userSearch = await spotify.SearchUser("Spotify");
+
+        if (weeklyChart == null)
+        {
+            Console.WriteLine("User search failed");
+            return;
+        }
+
+        Console.WriteLine("Users found:");
+
+        string usersConc = null;
+
+        foreach (var sUser in userSearch.Data.SearchV2.Users.Items)
+            usersConc = usersConc + "," + sUser.Data.Username;
+
+        Console.WriteLine(usersConc);
+
+        Console.WriteLine("--------------------------------------------------");
+
+
+
+        // To use this method you need pass a valid authenticated access token to constructor
+        // var spotify = new SpotifyPrivate.API(YOUR_ACCESS_TOKEN_HERE);
+        var followResult = await spotify.FollowUser("22keufaf2l4fpmztovnu5llmq");
+        Console.WriteLine(followResult ? "Follow Success" : "Follow Failed");
+
+
         Console.ReadKey();
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 using Newtonsoft.Json;
-using SpotifyAPI.Web;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace SpotifyPrivate
 {
@@ -14,6 +14,7 @@ namespace SpotifyPrivate
         private string? variables = null;
         private string? extensions = null;
         private string? token = null;
+        private string? body = null;
         private HttpClient? client = null;
         private WebProxy? proxy = null;
 
@@ -40,7 +41,7 @@ namespace SpotifyPrivate
                 }
             });
            
-            Track.Base? response =  await DoRequest<Track.Base?>();
+            Track.Base? response =  await DoGetRequest<Track.Base?>();
 
             return response;
         }
@@ -66,7 +67,7 @@ namespace SpotifyPrivate
                 }
             });
 
-            Artist.Base? response = await DoRequest<Artist.Base?>();
+            Artist.Base? response = await DoGetRequest<Artist.Base?>();
 
             return response;
         }
@@ -91,7 +92,7 @@ namespace SpotifyPrivate
                 }
             });
 
-            Playlist.Base? response = await DoRequest<Playlist.Base?>();
+            Playlist.Base? response = await DoGetRequest<Playlist.Base?>();
 
             if(response == null)
                 return null;
@@ -125,7 +126,117 @@ namespace SpotifyPrivate
                 }
             });
 
-            Album.Base? response = await DoRequest<Album.Base?>();
+            Album.Base? response = await DoGetRequest<Album.Base?>();
+
+            return response;
+        }
+
+        public async Task<bool> AddLibrary(string uri)
+        {
+            operationName = "addToLibrary";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                uris = new List<string> { uri },
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "656c491c3f65d9d08d259be6632f4ef1931540ebcf766488ed17f76bb9156d15"
+                }
+            });
+
+            var response = await DoGetRequest<bool>();
+
+            return response;
+        }
+
+        public async Task<bool> FollowUser(string userId)
+        {
+            operationName = "searchUsers";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                usernames = new List<string> { userId },
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "5a467654a1b81d4a8ab2a91819d7646264bd94873b163e034896be0dbf142eb7"
+                }
+            });
+
+            var response = await DoGetRequest<bool>();
+
+            return response;
+        }
+
+        public async Task<bool> FollowUser(List<string> users)
+        {
+            body = JsonConvert.SerializeObject(new
+            {
+                variables = new
+                {
+                    usernames = users,
+                },
+                operationName = "followUsers",
+                extensions = new
+                {
+                    persistedQuery = new
+                    {
+                        version = 1,
+                        sha256Hash = "5a467654a1b81d4a8ab2a91819d7646264bd94873b163e034896be0dbf142eb7"
+                    }
+                }
+            });
+
+            var response = await DoPostRequest<bool>();
+
+            return response;
+        }
+
+        public async Task<UserSearch.Base?> SearchUser(string searchTerm, bool fetchAllResults = false)
+        {
+            operationName = "searchUsers";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                searchTerm = searchTerm,
+                offset = 0,
+                limit = 100,
+                numberOfTopResults = 0,
+                includeAudiobooks = false
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "f82af76fbfa6f57a45e0f013efc0d4ae53f722932a85aca18d32557c637b06c8"
+                }
+            });
+
+            UserSearch.Base? response = await DoGetRequest<UserSearch.Base?>();
+
+
+            while ((fetchAllResults) && (response.Data.SearchV2.Users.Items.Count < response.Data.SearchV2.Users.TotalCount))
+            {
+                var tempData = await SearchUserRecursive(searchTerm, response.Data.SearchV2.Users.Items.Count);
+
+                if (tempData == null || tempData.Count == 0)
+                    break;
+
+                response.Data.SearchV2.Users.Items.AddRange(tempData);
+            }
+
+
 
             return response;
         }
@@ -133,7 +244,7 @@ namespace SpotifyPrivate
         public async Task<User.Base?> GetUser(string userID, int playlist_limit = 10, int artist_limit = 10, int episode_limit = 10, string market = "US")
         {
             string URL = $"https://spclient.wg.spotify.com/user-profile-view/v3/profile/{userID}?playlist_limit={playlist_limit}&artist_limit={artist_limit}&episode_limit={episode_limit}&market={market}";
-            User.Base? response = await DoRequest<User.Base?>(URL);
+            User.Base? response = await DoGetRequest<User.Base?>(URL);
             return response;
         }
 
@@ -144,9 +255,14 @@ namespace SpotifyPrivate
         /// </summary>
         /// <returns></returns>
 
-        private string GetQuery() => "operationName=" + operationName + "&variables=" + variables + "&extensions=" + extensions;
+        private string GetQuery() {
+            if (operationName == null || variables == null || extensions == null)
+                return "";
 
-        private async Task<T?> DoRequest<T>(string? URL = null)
+            return "operationName=" + operationName + "&variables=" + variables + "&extensions=" + extensions;
+        }
+
+        private async Task<T?> DoGetRequest<T>(string? URL = null)
         {
             if (token == null)
                 token = (await Auth.GetAuth()).accessToken;
@@ -164,7 +280,11 @@ namespace SpotifyPrivate
             try
             {
                 //GetFromJsonAsync make lists return null
-                var data = await client.GetStringAsync(URL == null ? baseURL + GetQuery() : URL);
+                var data = await client.GetStringAsync(URL == null ? baseURL + GetQuery() : URL);                
+
+                if (typeof(T) == typeof(bool))
+                    return (T)Convert.ChangeType(true, typeof(T));
+
                 response = JsonConvert.DeserializeObject<T>(data);
             }
             catch (HttpRequestException e)
@@ -172,7 +292,44 @@ namespace SpotifyPrivate
                 if (e.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
                     token = (await Auth.GetAuth()).accessToken;
-                    return await DoRequest<T>(URL);
+                    return await DoGetRequest<T>(URL);
+                }
+            }
+
+            return response;
+        }
+
+        private async Task<T?> DoPostRequest<T>(string? URL = null)
+        {
+            if (token == null)
+                token = (await Auth.GetAuth()).accessToken;
+
+
+            if (proxy != null)
+                client = new HttpClient(new HttpClientHandler { Proxy = proxy });
+            else
+                client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            T? response = default(T);
+
+            try
+            {
+                //GetFromJsonAsync make lists return null
+                var data = await client.PostAsync(URL == null ? baseURL : URL, new StringContent(body ?? "", Encoding.UTF8, "application/json"));
+
+                if (typeof(T) == typeof(bool))
+                    return (T)Convert.ChangeType(true, typeof(T));
+
+                response = JsonConvert.DeserializeObject<T?>(data.Content.ToString());
+            }
+            catch (HttpRequestException e)
+            {
+                if (e.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    token = (await Auth.GetAuth()).accessToken;
+                    return await DoPostRequest<T>(URL);
                 }
             }
 
@@ -199,13 +356,44 @@ namespace SpotifyPrivate
                 }
             });
 
-            PlaylistContent.Base? response = await DoRequest<PlaylistContent.Base?>();
+            PlaylistContent.Base? response = await DoGetRequest<PlaylistContent.Base?>();
 
 
             if (response == null)
                 return new List<Playlist.Item>();
 
             return response.Data.PlaylistV2.Content.Items;
+        }
+
+        private async Task<List<UserSearch.Item>> SearchUserRecursive(string searchTerm, int offset)
+        {
+            operationName = "searchUsers";
+
+            variables = JsonConvert.SerializeObject(new
+            {
+                searchTerm = searchTerm,
+                offset = offset,
+                limit = 100,
+                numberOfTopResults = 0,
+                includeAudiobooks = false
+            });
+
+            extensions = JsonConvert.SerializeObject(new
+            {
+                persistedQuery = new
+                {
+                    version = 1,
+                    sha256Hash = "f82af76fbfa6f57a45e0f013efc0d4ae53f722932a85aca18d32557c637b06c8"
+                }
+            });
+
+            UserSearch.Base? response = await DoGetRequest<UserSearch.Base?>();
+
+
+            if (response == null || response.Data.SearchV2 == null)
+                return new List<UserSearch.Item>();
+
+            return response.Data.SearchV2.Users.Items;
         }
 
 
