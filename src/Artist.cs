@@ -5,254 +5,226 @@ namespace SpotifyPrivate
 {
     namespace Artist
     {
-
         public class AlbumOfTrack
         {
             [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
+            public string Uri;
 
             [JsonProperty("coverArt", NullValueHandling = NullValueHandling.Ignore)]
-            public CoverArt CoverArt { get; set; }
+            public CoverArt CoverArt;
         }
 
         public class Albums
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class AppearsOn
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Artists
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class ArtistUnion
         {
             [JsonProperty("__typename", NullValueHandling = NullValueHandling.Ignore)]
-            public string Typename { get; set; }
+            public string Typename;
 
             [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-            public string Id { get; set; }
+            public string Id;
 
             [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
+            public string Uri;
 
             [JsonProperty("saved", NullValueHandling = NullValueHandling.Ignore)]
-            public bool? Saved { get; set; }
+            public bool? Saved;
 
             [JsonProperty("sharingInfo", NullValueHandling = NullValueHandling.Ignore)]
-            public SharingInfo SharingInfo { get; set; }
+            public SharingInfo SharingInfo;
 
             [JsonProperty("preRelease", NullValueHandling = NullValueHandling.Ignore)]
-            public object PreRelease { get; set; }
+            public object PreRelease;
 
             [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-            public Profile Profile { get; set; }
+            public Profile Profile;
 
             [JsonProperty("visuals", NullValueHandling = NullValueHandling.Ignore)]
-            public Visuals Visuals { get; set; }
+            public Visuals Visuals;
 
             [JsonProperty("discography", NullValueHandling = NullValueHandling.Ignore)]
-            public Discography Discography { get; set; }
+            public Discography Discography;
 
             [JsonProperty("stats", NullValueHandling = NullValueHandling.Ignore)]
-            public Stats Stats { get; set; }
+            public Stats Stats;
 
             [JsonProperty("relatedContent", NullValueHandling = NullValueHandling.Ignore)]
-            public RelatedContent RelatedContent { get; set; }
+            public RelatedContent RelatedContent;
 
             [JsonProperty("goods", NullValueHandling = NullValueHandling.Ignore)]
-            public Goods Goods { get; set; }
+            public Goods Goods;
         }
 
         public class AvatarImage
         {
             [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
+            public List<Source> Sources;
 
             [JsonProperty("extractedColors", NullValueHandling = NullValueHandling.Ignore)]
-            public ExtractedColors ExtractedColors { get; set; }
-        }
-
-        public class BackgroundImage
-        {
-            [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
+            public ExtractedColors ExtractedColors;
         }
 
         public class Biography
         {
             [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
-            public string Type { get; set; }
+            public string Type;
 
             [JsonProperty("text", NullValueHandling = NullValueHandling.Ignore)]
-            public string Text { get; set; }
+            public string Text;
         }
 
         public class ColorRaw
         {
             [JsonProperty("hex", NullValueHandling = NullValueHandling.Ignore)]
-            public string Hex { get; set; }
+            public string Hex;
         }
 
         public class Compilations
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Concerts
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<object> Items;
 
             [JsonProperty("pagingInfo", NullValueHandling = NullValueHandling.Ignore)]
-            public PagingInfo PagingInfo { get; set; }
+            public PagingInfo PagingInfo;
         }
 
         public class ContentRating
         {
             [JsonProperty("label", NullValueHandling = NullValueHandling.Ignore)]
-            public string Label { get; set; }
-        }
-
-        public class Coordinates
-        {
-            [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
-            public double? Latitude { get; set; }
-
-            [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
-            public double? Longitude { get; set; }
+            public string Label;
         }
 
         public class Copyright
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class CoverArt
         {
             [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
+            public List<Source> Sources;
         }
 
         public class Data
         {
             [JsonProperty("artistUnion", NullValueHandling = NullValueHandling.Ignore)]
-            public ArtistUnion ArtistUnion { get; set; }
+            public ArtistUnion ArtistUnion;
 
             [JsonProperty("__typename", NullValueHandling = NullValueHandling.Ignore)]
-            public string Typename { get; set; }
+            public string Typename;
 
             [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
+            public string Uri;
 
             [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
+            public string Name;
 
             [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-            public string Description { get; set; }
+            public string Description;
 
             [JsonProperty("ownerV2", NullValueHandling = NullValueHandling.Ignore)]
-            public OwnerV2 OwnerV2 { get; set; }
+            public OwnerV2 OwnerV2;
 
             [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
-            public Images Images { get; set; }
+            public Images Images;
 
             [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-            public string Id { get; set; }
+            public string Id;
         }
 
         public class Date
         {
             [JsonProperty("year", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Year { get; set; }
+            public int? Year;
 
             [JsonProperty("month", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Month { get; set; }
+            public int? Month;
 
             [JsonProperty("day", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Day { get; set; }
+            public int? Day;
 
             [JsonProperty("precision", NullValueHandling = NullValueHandling.Ignore)]
-            public string Precision { get; set; }
-
-            [JsonProperty("hour", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Hour { get; set; }
-
-            [JsonProperty("minute", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Minute { get; set; }
-
-            [JsonProperty("second", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Second { get; set; }
-
-            [JsonProperty("isoString", NullValueHandling = NullValueHandling.Ignore)]
-            public string IsoString { get; set; }
+            public string Precision;
         }
 
         public class Discography
         {
             [JsonProperty("latest", NullValueHandling = NullValueHandling.Ignore)]
-            public object Latest { get; set; }
+            public object Latest;
 
             [JsonProperty("popularReleasesAlbums", NullValueHandling = NullValueHandling.Ignore)]
-            public PopularReleasesAlbums PopularReleasesAlbums { get; set; }
+            public PopularReleasesAlbums PopularReleasesAlbums;
 
             [JsonProperty("singles", NullValueHandling = NullValueHandling.Ignore)]
-            public Singles Singles { get; set; }
+            public Singles Singles;
 
             [JsonProperty("albums", NullValueHandling = NullValueHandling.Ignore)]
-            public Albums Albums { get; set; }
+            public Albums Albums;
 
             [JsonProperty("compilations", NullValueHandling = NullValueHandling.Ignore)]
-            public Compilations Compilations { get; set; }
+            public Compilations Compilations;
 
             [JsonProperty("topTracks", NullValueHandling = NullValueHandling.Ignore)]
-            public TopTracks TopTracks { get; set; }
+            public TopTracks TopTracks;
         }
 
         public class DiscoveredOnV2
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Duration
         {
             [JsonProperty("totalMilliseconds", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalMilliseconds { get; set; }
+            public int? TotalMilliseconds;
         }
 
         public class Events
         {
             [JsonProperty("userLocation", NullValueHandling = NullValueHandling.Ignore)]
-            public UserLocation UserLocation { get; set; }
+            public UserLocation UserLocation;
 
             [JsonProperty("concerts", NullValueHandling = NullValueHandling.Ignore)]
-            public Concerts Concerts { get; set; }
+            public Concerts Concerts;
         }
 
         public class Extensions
@@ -262,450 +234,355 @@ namespace SpotifyPrivate
         public class ExternalLinks
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class ExtractedColors
         {
             [JsonProperty("colorRaw", NullValueHandling = NullValueHandling.Ignore)]
-            public ColorRaw ColorRaw { get; set; }
+            public ColorRaw ColorRaw;
         }
 
         public class FeaturingV2
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Gallery
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Goods
         {
             [JsonProperty("events", NullValueHandling = NullValueHandling.Ignore)]
-            public Events Events { get; set; }
+            public Events Events;
 
             [JsonProperty("merch", NullValueHandling = NullValueHandling.Ignore)]
-            public Merch Merch { get; set; }
+            public Merch Merch;
         }
 
         public class HeaderImage
         {
             [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
+            public List<Source> Sources;
 
             [JsonProperty("extractedColors", NullValueHandling = NullValueHandling.Ignore)]
-            public ExtractedColors ExtractedColors { get; set; }
-        }
-
-        public class Image
-        {
-            [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
+            public ExtractedColors ExtractedColors;
         }
 
         public class Images
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
 
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
         }
 
         public class Item
         {
-            [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
-
             [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
-
-            [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
-            public Images Images { get; set; }
-        }
-
-        public class Item10
-        {
-            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-            public string Id { get; set; }
-
-            [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
-
-            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
-
-            [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
-            public string Type { get; set; }
-
-            [JsonProperty("copyright", NullValueHandling = NullValueHandling.Ignore)]
-            public Copyright Copyright { get; set; }
-
-            [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
-            public Date Date { get; set; }
-
-            [JsonProperty("coverArt", NullValueHandling = NullValueHandling.Ignore)]
-            public CoverArt CoverArt { get; set; }
-
-            [JsonProperty("tracks", NullValueHandling = NullValueHandling.Ignore)]
-            public Tracks Tracks { get; set; }
-
-            [JsonProperty("label", NullValueHandling = NullValueHandling.Ignore)]
-            public string Label { get; set; }
-
-            [JsonProperty("playability", NullValueHandling = NullValueHandling.Ignore)]
-            public Playability Playability { get; set; }
-
-            [JsonProperty("sharingInfo", NullValueHandling = NullValueHandling.Ignore)]
-            public SharingInfo SharingInfo { get; set; }
-
-            [JsonProperty("text", NullValueHandling = NullValueHandling.Ignore)]
-            public string Text { get; set; }
-
-            [JsonProperty("releases", NullValueHandling = NullValueHandling.Ignore)]
-            public Releases Releases { get; set; }
-
-            [JsonProperty("uid", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uid { get; set; }
-
-            [JsonProperty("track", NullValueHandling = NullValueHandling.Ignore)]
-            public Track Track { get; set; }
-
-            [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-            public Profile Profile { get; set; }
-
-            [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Source> Sources { get; set; }
-
-            [JsonProperty("numberOfListeners", NullValueHandling = NullValueHandling.Ignore)]
-            public int? NumberOfListeners { get; set; }
-
-            [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
-            public string City { get; set; }
-
-            [JsonProperty("country", NullValueHandling = NullValueHandling.Ignore)]
-            public string Country { get; set; }
-
-            [JsonProperty("region", NullValueHandling = NullValueHandling.Ignore)]
-            public string Region { get; set; }
-
-            [JsonProperty("artists", NullValueHandling = NullValueHandling.Ignore)]
-            public Artists Artists { get; set; }
-
-            [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-            public Data Data { get; set; }
-
-            [JsonProperty("visuals", NullValueHandling = NullValueHandling.Ignore)]
-            public Visuals Visuals { get; set; }
-
-            [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-            public string Title { get; set; }
-
-            [JsonProperty("category", NullValueHandling = NullValueHandling.Ignore)]
-            public string Category { get; set; }
-
-            [JsonProperty("festival", NullValueHandling = NullValueHandling.Ignore)]
-            public bool? Festival { get; set; }
-
-            [JsonProperty("nearUser", NullValueHandling = NullValueHandling.Ignore)]
-            public bool? NearUser { get; set; }
-
-            [JsonProperty("venue", NullValueHandling = NullValueHandling.Ignore)]
-            public Venue Venue { get; set; }
-
-            [JsonProperty("partnerLinks", NullValueHandling = NullValueHandling.Ignore)]
-            public PartnerLinks PartnerLinks { get; set; }
+            public string Name;
 
             [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
-            public string Url { get; set; }
+            public string Url;
 
-            [JsonProperty("partnerName", NullValueHandling = NullValueHandling.Ignore)]
-            public string PartnerName { get; set; }
+            [JsonProperty("releases", NullValueHandling = NullValueHandling.Ignore)]
+            public Releases Releases;
 
-            [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
-            public Image Image { get; set; }
+            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+            public string Id;
 
-            [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-            public string Description { get; set; }
+            [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
+            public string Uri;
 
-            [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-            public string Price { get; set; }
-        }
+            [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+            public string Type;
 
-        public class ItemV2
-        {
-        }
+            [JsonProperty("copyright", NullValueHandling = NullValueHandling.Ignore)]
+            public Copyright Copyright;
 
-        public class Location
-        {
-            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
+            [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
+            public Date Date;
+
+            [JsonProperty("coverArt", NullValueHandling = NullValueHandling.Ignore)]
+            public CoverArt CoverArt;
+
+            [JsonProperty("tracks", NullValueHandling = NullValueHandling.Ignore)]
+            public Tracks Tracks;
+
+            [JsonProperty("label", NullValueHandling = NullValueHandling.Ignore)]
+            public string Label;
+
+            [JsonProperty("playability", NullValueHandling = NullValueHandling.Ignore)]
+            public Playability Playability;
+
+            [JsonProperty("sharingInfo", NullValueHandling = NullValueHandling.Ignore)]
+            public SharingInfo SharingInfo;
+
+            [JsonProperty("text", NullValueHandling = NullValueHandling.Ignore)]
+            public string Text;
+
+            [JsonProperty("uid", NullValueHandling = NullValueHandling.Ignore)]
+            public string Uid;
+
+            [JsonProperty("track", NullValueHandling = NullValueHandling.Ignore)]
+            public Track Track;
+
+            [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
+            public Profile Profile;
+
+            [JsonProperty("numberOfListeners", NullValueHandling = NullValueHandling.Ignore)]
+            public int? NumberOfListeners;
+
+            [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
+            public string City;
+
+            [JsonProperty("country", NullValueHandling = NullValueHandling.Ignore)]
+            public string Country;
+
+            [JsonProperty("region", NullValueHandling = NullValueHandling.Ignore)]
+            public string Region;
+
+            [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+            public Data Data;
+
+            [JsonProperty("artists", NullValueHandling = NullValueHandling.Ignore)]
+            public Artists Artists;
+
+            [JsonProperty("sources", NullValueHandling = NullValueHandling.Ignore)]
+            public List<Source> Sources;
+
+            [JsonProperty("visuals", NullValueHandling = NullValueHandling.Ignore)]
+            public Visuals Visuals;
         }
 
         public class Merch
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<object> Items;
         }
 
         public class OwnerV2
         {
             [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-            public Data Data { get; set; }
+            public Data Data;
         }
 
         public class PagingInfo
         {
             [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Limit { get; set; }
-        }
-
-        public class PartnerLinks
-        {
-            [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
-        }
-
-        public class PinnedItem
-        {
-            [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
-            public string Comment { get; set; }
-
-            [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
-            public string Type { get; set; }
-
-            [JsonProperty("backgroundImage", NullValueHandling = NullValueHandling.Ignore)]
-            public BackgroundImage BackgroundImage { get; set; }
-
-            [JsonProperty("itemV2", NullValueHandling = NullValueHandling.Ignore)]
-            public ItemV2 ItemV2 { get; set; }
-
-            [JsonProperty("item", NullValueHandling = NullValueHandling.Ignore)]
-            public Item Item { get; set; }
+            public int? Limit;
         }
 
         public class Playability
         {
             [JsonProperty("playable", NullValueHandling = NullValueHandling.Ignore)]
-            public bool? Playable { get; set; }
+            public bool? Playable;
 
             [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
-            public string Reason { get; set; }
+            public string Reason;
         }
 
         public class PlaylistsV2
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class PopularReleasesAlbums
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Profile
         {
             [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
+            public string Name;
 
             [JsonProperty("verified", NullValueHandling = NullValueHandling.Ignore)]
-            public bool? Verified { get; set; }
+            public bool? Verified;
 
             [JsonProperty("pinnedItem", NullValueHandling = NullValueHandling.Ignore)]
-            public PinnedItem PinnedItem { get; set; }
+            public object PinnedItem;
 
             [JsonProperty("biography", NullValueHandling = NullValueHandling.Ignore)]
-            public Biography Biography { get; set; }
+            public Biography Biography;
 
             [JsonProperty("externalLinks", NullValueHandling = NullValueHandling.Ignore)]
-            public ExternalLinks ExternalLinks { get; set; }
+            public ExternalLinks ExternalLinks;
 
             [JsonProperty("playlistsV2", NullValueHandling = NullValueHandling.Ignore)]
-            public PlaylistsV2 PlaylistsV2 { get; set; }
+            public PlaylistsV2 PlaylistsV2;
         }
 
         public class RelatedArtists
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class RelatedContent
         {
             [JsonProperty("appearsOn", NullValueHandling = NullValueHandling.Ignore)]
-            public AppearsOn AppearsOn { get; set; }
+            public AppearsOn AppearsOn;
 
             [JsonProperty("featuringV2", NullValueHandling = NullValueHandling.Ignore)]
-            public FeaturingV2 FeaturingV2 { get; set; }
+            public FeaturingV2 FeaturingV2;
 
             [JsonProperty("discoveredOnV2", NullValueHandling = NullValueHandling.Ignore)]
-            public DiscoveredOnV2 DiscoveredOnV2 { get; set; }
+            public DiscoveredOnV2 DiscoveredOnV2;
 
             [JsonProperty("relatedArtists", NullValueHandling = NullValueHandling.Ignore)]
-            public RelatedArtists RelatedArtists { get; set; }
+            public RelatedArtists RelatedArtists;
         }
 
         public class Releases
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
 
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
         }
 
         public class Base
         {
             [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-            public Data Data { get; set; }
+            public Data Data;
 
             [JsonProperty("extensions", NullValueHandling = NullValueHandling.Ignore)]
-            public Extensions Extensions { get; set; }
+            public Extensions Extensions;
         }
 
         public class SharingInfo
         {
             [JsonProperty("shareUrl", NullValueHandling = NullValueHandling.Ignore)]
-            public string ShareUrl { get; set; }
+            public string ShareUrl;
 
             [JsonProperty("shareId", NullValueHandling = NullValueHandling.Ignore)]
-            public string ShareId { get; set; }
+            public string ShareId;
         }
 
         public class Singles
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
 
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Source
         {
             [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
-            public string Url { get; set; }
+            public string Url;
 
             [JsonProperty("width", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Width { get; set; }
+            public object Width;
 
             [JsonProperty("height", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Height { get; set; }
+            public object Height;
         }
 
         public class Stats
         {
             [JsonProperty("followers", NullValueHandling = NullValueHandling.Ignore)]
-            public int? Followers { get; set; }
+            public int? Followers;
 
             [JsonProperty("monthlyListeners", NullValueHandling = NullValueHandling.Ignore)]
-            public int? MonthlyListeners { get; set; }
+            public int? MonthlyListeners;
 
             [JsonProperty("worldRank", NullValueHandling = NullValueHandling.Ignore)]
-            public int? WorldRank { get; set; }
+            public int? WorldRank;
 
             [JsonProperty("topCities", NullValueHandling = NullValueHandling.Ignore)]
-            public TopCities TopCities { get; set; }
+            public TopCities TopCities;
         }
 
         public class TopCities
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class TopTracks
         {
             [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-            public List<Item> Items { get; set; }
+            public List<Item> Items;
         }
 
         public class Track
         {
             [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-            public string Id { get; set; }
+            public string Id;
 
             [JsonProperty("uri", NullValueHandling = NullValueHandling.Ignore)]
-            public string Uri { get; set; }
+            public string Uri;
 
             [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
+            public string Name;
 
             [JsonProperty("playcount", NullValueHandling = NullValueHandling.Ignore)]
-            public string Playcount { get; set; }
+            public string Playcount;
 
             [JsonProperty("discNumber", NullValueHandling = NullValueHandling.Ignore)]
-            public int? DiscNumber { get; set; }
+            public int? DiscNumber;
 
             [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
-            public Duration Duration { get; set; }
+            public Duration Duration;
 
             [JsonProperty("playability", NullValueHandling = NullValueHandling.Ignore)]
-            public Playability Playability { get; set; }
+            public Playability Playability;
 
             [JsonProperty("contentRating", NullValueHandling = NullValueHandling.Ignore)]
-            public ContentRating ContentRating { get; set; }
+            public ContentRating ContentRating;
 
             [JsonProperty("artists", NullValueHandling = NullValueHandling.Ignore)]
-            public Artists Artists { get; set; }
+            public Artists Artists;
 
             [JsonProperty("albumOfTrack", NullValueHandling = NullValueHandling.Ignore)]
-            public AlbumOfTrack AlbumOfTrack { get; set; }
+            public AlbumOfTrack AlbumOfTrack;
         }
 
         public class Tracks
         {
             [JsonProperty("totalCount", NullValueHandling = NullValueHandling.Ignore)]
-            public int? TotalCount { get; set; }
+            public int? TotalCount;
         }
 
         public class UserLocation
         {
             [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
-        }
-
-        public class Venue
-        {
-            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-            public string Name { get; set; }
-
-            [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
-            public Location Location { get; set; }
-
-            [JsonProperty("coordinates", NullValueHandling = NullValueHandling.Ignore)]
-            public Coordinates Coordinates { get; set; }
+            public string Name;
         }
 
         public class Visuals
         {
             [JsonProperty("gallery", NullValueHandling = NullValueHandling.Ignore)]
-            public Gallery Gallery { get; set; }
+            public Gallery Gallery;
 
             [JsonProperty("avatarImage", NullValueHandling = NullValueHandling.Ignore)]
-            public AvatarImage AvatarImage { get; set; }
+            public AvatarImage AvatarImage;
 
             [JsonProperty("headerImage", NullValueHandling = NullValueHandling.Ignore)]
-            public HeaderImage HeaderImage { get; set; }
+            public HeaderImage HeaderImage;
         }
-
     }
 }
